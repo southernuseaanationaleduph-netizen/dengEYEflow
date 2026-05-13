@@ -1,0 +1,274 @@
+
+<style>
+  :root { --gap: 18px; --card-r: 10px; }
+  .flow-wrap { padding: 1rem 0; font-size: 13px; color: var(--color-text-primary); }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: .06em; color: var(--color-text-tertiary); text-transform: uppercase; margin: 0 0 8px; }
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--card-r); padding: 10px 14px; }
+  .card-title { font-size: 13px; font-weight: 500; margin: 0 0 3px; }
+  .card-sub { font-size: 11px; color: var(--color-text-secondary); margin: 0; line-height: 1.5; }
+  .pill { display: inline-block; font-size: 10px; font-weight: 500; border-radius: 20px; padding: 2px 8px; margin-bottom: 5px; }
+  .pill-teal   { background: #E1F5EE; color: #0F6E56; }
+  .pill-purple { background: #EEEDFE; color: #3C3489; }
+  .pill-amber  { background: #FAEEDA; color: #854F0B; }
+  .pill-coral  { background: #FAECE7; color: #993C1D; }
+  .pill-blue   { background: #E6F1FB; color: #185FA5; }
+  .pill-pink   { background: #FBEAF0; color: #72243E; }
+  .row { display: flex; gap: var(--gap); align-items: flex-start; }
+  .col { flex: 1; min-width: 0; }
+  .arrow-down { text-align: center; color: var(--color-text-tertiary); font-size: 18px; line-height: 1.2; margin: 4px 0; }
+  .arrow-right { display: flex; align-items: center; justify-content: center; color: var(--color-text-tertiary); font-size: 16px; padding-top: 28px; flex: 0 0 16px; }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 14px 0; }
+  .hub { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--card-r); padding: 12px 16px; text-align: center; }
+  .hub-title { font-size: 14px; font-weight: 500; margin: 0 0 2px; }
+  .hub-sub { font-size: 11px; color: var(--color-text-secondary); margin: 0; }
+  .step-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-secondary); font-size: 10px; font-weight: 500; margin-right: 6px; flex-shrink: 0; }
+  .step-row { display: flex; align-items: flex-start; margin-bottom: 6px; }
+  .step-text { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+  .output-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .output-card { background: var(--color-background-secondary); border-radius: 8px; padding: 10px 12px; text-align: center; }
+  .output-icon { font-size: 20px; color: var(--color-text-secondary); margin-bottom: 4px; }
+  .output-label { font-size: 11px; font-weight: 500; }
+  .output-sub { font-size: 10px; color: var(--color-text-secondary); margin-top: 2px; }
+  .connector-v { width: 1px; background: var(--color-border-secondary); height: 20px; margin: 0 auto; }
+  .connector-h-wrap { display: flex; align-items: center; gap: 0; margin: 8px 0; }
+  .connector-h { flex: 1; height: 1px; background: var(--color-border-secondary); }
+  .connector-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--color-border-primary); flex-shrink: 0; }
+  .section-bg { background: var(--color-background-secondary); border-radius: var(--card-r); padding: 12px 14px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .feature-tag { font-size: 10px; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: 4px; padding: 2px 6px; }
+  @media (prefers-color-scheme: dark) {
+    .pill-teal   { background: #04342C; color: #9FE1CB; }
+    .pill-purple { background: #26215C; color: #CECBF6; }
+    .pill-amber  { background: #412402; color: #FAC775; }
+    .pill-coral  { background: #4A1B0C; color: #F5C4B3; }
+    .pill-blue   { background: #042C53; color: #B5D4F4; }
+    .pill-pink   { background: #4B1528; color: #F4C0D1; }
+  }
+</style>
+
+<div class="flow-wrap">
+
+  <p class="section-label">DengEYE D.I.S — Full App Flow</p>
+
+  <!-- USER ENTRY -->
+  <div class="row" style="margin-bottom: 10px;">
+    <div class="col">
+      <div class="card" style="border-left: 3px solid var(--color-border-info);">
+        <p class="card-title"><i class="ti ti-user-circle" aria-hidden="true" style="font-size:15px;margin-right:5px;vertical-align:-2px"></i>User opens DengEYE app</p>
+        <p class="card-sub">Resident, BHW, or Barangay Official — selects role on first launch. Location permissions requested.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" style="border-left: 3px solid var(--color-border-secondary);">
+        <p class="card-title"><i class="ti ti-map-2" aria-hidden="true" style="font-size:15px;margin-right:5px;vertical-align:-2px"></i>Home screen: live hotspot map</p>
+        <p class="card-sub">Real-time dengue risk map loads. Color-coded zones (green → red) based on aggregated data from all modules.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <!-- 4 MODULES -->
+  <p class="section-label" style="margin-top:8px">4 core modules</p>
+  <div class="row">
+
+    <!-- TANAW-KLIMA -->
+    <div class="col">
+      <div class="card">
+        <span class="pill pill-teal">TANAW-KLIMA</span>
+        <p class="card-title">Environmental risk prediction</p>
+        <div class="step-row"><span class="step-num">1</span><span class="step-text">User inputs temperature + humidity</span></div>
+        <div class="step-row"><span class="step-num">2</span><span class="step-text">LSTM model processes time-series data</span></div>
+        <div class="step-row"><span class="step-num">3</span><span class="step-text">Risk forecast generated (24–72 hrs)</span></div>
+        <div class="step-row"><span class="step-num">4</span><span class="step-text">Risk intensity overlaid on hotspot map</span></div>
+        <div class="tag-row">
+          <span class="feature-tag">LSTM model</span>
+          <span class="feature-tag">time-based forecast</span>
+          <span class="feature-tag">dynamic map layer</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUGAD-SIYASAT -->
+    <div class="col">
+      <div class="card">
+        <span class="pill pill-purple">PUGAD-SIYASAT</span>
+        <p class="card-title">Breeding site detection</p>
+        <div class="step-row"><span class="step-num">1</span><span class="step-text">User opens camera — continuous scan starts</span></div>
+        <div class="step-row"><span class="step-num">2</span><span class="step-text">YOLO-based CNN auto-detects sites in real-time</span></div>
+        <div class="step-row"><span class="step-num">3</span><span class="step-text">Bounding boxes drawn on detected objects</span></div>
+        <div class="step-row"><span class="step-num">4</span><span class="step-text">GPS coordinates auto-logged + map tagged</span></div>
+        <div class="step-row"><span class="step-num">5</span><span class="step-text">GLINT mode: light-reflection scan for dark areas</span></div>
+        <div class="step-row"><span class="step-num">6</span><span class="step-text">TUSOK points awarded only on BHW verification</span></div>
+        <div class="tag-row">
+          <span class="feature-tag">YOLO-CNN</span>
+          <span class="feature-tag">GLINT mode</span>
+          <span class="feature-tag">TUSOK accuracy points</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TUKLAS -->
+    <div class="col">
+      <div class="card">
+        <span class="pill pill-amber">TUKLAS</span>
+        <p class="card-title">Dermatoscopic diagnostic</p>
+        <div class="step-row"><span class="step-num">1</span><span class="step-text">User captures rash via dermatoscope or phone cam</span></div>
+        <div class="step-row"><span class="step-num">2</span><span class="step-text">CNN model classifies cutaneous rash pattern</span></div>
+        <div class="step-row"><span class="step-num">3</span><span class="step-text">Preliminary risk result shown (screening only)</span></div>
+        <div class="step-row"><span class="step-num">4</span><span class="step-text">If suspected positive: GPS logged, alert triggered</span></div>
+        <div class="step-row"><span class="step-num">5</span><span class="step-text">Case added to community risk map</span></div>
+        <div class="step-row"><span class="step-num">6</span><span class="step-text">Nearest RHU routing initiated automatically</span></div>
+        <div class="tag-row">
+          <span class="feature-tag">CNN classifier</span>
+          <span class="feature-tag">secondary prevention</span>
+          <span class="feature-tag">geo-alert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BANTAY-BAYANIHAN -->
+    <div class="col">
+      <div class="card">
+        <span class="pill pill-coral">BANTAY-BAYANIHAN</span>
+        <p class="card-title">Community reporting</p>
+        <div class="step-row"><span class="step-num">1</span><span class="step-text">Resident files daily health update or symptom report</span></div>
+        <div class="step-row"><span class="step-num">2</span><span class="step-text">AI chatbot triages in Filipino/dialect</span></div>
+        <div class="step-row"><span class="step-num">3</span><span class="step-text">BHW verifies report → elevates to RHU if needed</span></div>
+        <div class="step-row"><span class="step-num">4</span><span class="step-text">Peer-to-peer Kumarites awareness sharing</span></div>
+        <div class="step-row"><span class="step-num">5</span><span class="step-text">Offline queue: reports sync when back online</span></div>
+        <div class="step-row"><span class="step-num">6</span><span class="step-text">TUSOK score updated per verified report accuracy</span></div>
+        <div class="tag-row">
+          <span class="feature-tag">BHW integration</span>
+          <span class="feature-tag">AI chatbot</span>
+          <span class="feature-tag">offline-first</span>
+          <span class="feature-tag">Kumarites network</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONNECTOR TO HUB -->
+  <div style="display:flex; gap:var(--gap); margin: 4px 0;">
+    <div style="flex:1"><div class="connector-v"></div></div>
+    <div style="flex:1"><div class="connector-v"></div></div>
+    <div style="flex:1"><div class="connector-v"></div></div>
+    <div style="flex:1"><div class="connector-v"></div></div>
+  </div>
+  <div class="connector-h-wrap">
+    <div class="connector-h"></div>
+    <div class="connector-dot"></div>
+    <div class="connector-h"></div>
+    <div class="connector-dot"></div>
+    <div class="connector-h"></div>
+    <div class="connector-dot"></div>
+    <div class="connector-h"></div>
+  </div>
+  <div class="connector-v" style="margin-bottom:4px"></div>
+
+  <!-- CENTRAL HUB -->
+  <div class="hub" style="margin-bottom:4px">
+    <p class="hub-title"><i class="ti ti-database" aria-hidden="true" style="font-size:15px;margin-right:6px;vertical-align:-2px"></i>Community Risk Database + Hotspot Map Engine</p>
+    <p class="hub-sub">All module outputs feed here — GPS tags, CNN detections, LSTM forecasts, community reports, TUSOK scores</p>
+  </div>
+  <div class="connector-v" style="margin-bottom:4px"></div>
+
+  <!-- OUTPUTS -->
+  <p class="section-label">Outputs & interventions</p>
+  <div class="output-row" style="margin-bottom:10px;">
+    <div class="output-card">
+      <div class="output-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+      <p class="output-label">Live hotspot map</p>
+      <p class="output-sub">Updated in real-time per detection or report</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon"><i class="ti ti-bell-ringing" aria-hidden="true"></i></div>
+      <p class="output-label">Localized alerts</p>
+      <p class="output-sub">Push notif to nearby users on confirmed case</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+      <p class="output-label">Contact tracing lite</p>
+      <p class="output-sub">Anonymous proximity notif within barangay</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon"><i class="ti ti-calendar-event" aria-hidden="true"></i></div>
+      <p class="output-label">Fogging schedule</p>
+      <p class="output-sub">Officials broadcast, residents confirm compliance</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon"><i class="ti ti-file-analytics" aria-hidden="true"></i></div>
+      <p class="output-label">Weekly health digest</p>
+      <p class="output-sub">Auto-report to barangay captain every 7 days</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon"><i class="ti ti-target" aria-hidden="true"></i></div>
+      <p class="output-label">TUSOK leaderboard</p>
+      <p class="output-sub">Accuracy-based — penalty for wrong reports</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- TUSOK DETAIL -->
+  <p class="section-label">TUSOK pointing system — how accuracy works</p>
+  <div class="row">
+    <div class="col">
+      <div class="section-bg">
+        <p class="card-title" style="margin-bottom:6px">Score calculation</p>
+        <div class="step-row"><span class="step-num">+</span><span class="step-text">Report submitted → pending (no points yet)</span></div>
+        <div class="step-row"><span class="step-num">✓</span><span class="step-text">BHW verifies report as real → +10 pts</span></div>
+        <div class="step-row"><span class="step-num">✗</span><span class="step-text">BHW flags as false positive → −5 pts penalty</span></div>
+        <div class="step-row"><span class="step-num">★</span><span class="step-text">Site resolved/eliminated → bonus +5 pts</span></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="section-bg">
+        <p class="card-title" style="margin-bottom:6px">Leaderboard shows accuracy rate, not volume</p>
+        <div class="step-row"><span class="step-num">1</span><span class="step-text">10 reports, 8 verified = 80% accuracy, 80 pts</span></div>
+        <div class="step-row"><span class="step-num">2</span><span class="step-text">Spamming reports lowers your accuracy score</span></div>
+        <div class="step-row"><span class="step-num">3</span><span class="step-text">Rank titles: Baguhan → Tracer → Manlalaban → Bayani</span></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BHW ESCALATION -->
+  <p class="section-label">BHW escalation path</p>
+  <div class="row" style="align-items:center">
+    <div class="col">
+      <div class="card" style="text-align:center">
+        <i class="ti ti-user" aria-hidden="true" style="font-size:20px;color:var(--color-text-secondary)"></i>
+        <p class="card-title" style="margin:4px 0 2px">Resident</p>
+        <p class="card-sub">Files report or detection</p>
+      </div>
+    </div>
+    <div style="font-size:18px;color:var(--color-text-tertiary);padding-top:0">→</div>
+    <div class="col">
+      <div class="card" style="text-align:center">
+        <i class="ti ti-stethoscope" aria-hidden="true" style="font-size:20px;color:var(--color-text-secondary)"></i>
+        <p class="card-title" style="margin:4px 0 2px">BHW</p>
+        <p class="card-sub">Verifies, flags false positives, escalates</p>
+      </div>
+    </div>
+    <div style="font-size:18px;color:var(--color-text-tertiary)">→</div>
+    <div class="col">
+      <div class="card" style="text-align:center">
+        <i class="ti ti-building-hospital" aria-hidden="true" style="font-size:20px;color:var(--color-text-secondary)"></i>
+        <p class="card-title" style="margin:4px 0 2px">RHU / DOH</p>
+        <p class="card-sub">Receives confirmed case escalations</p>
+      </div>
+    </div>
+    <div style="font-size:18px;color:var(--color-text-tertiary)">→</div>
+    <div class="col">
+      <div class="card" style="text-align:center">
+        <i class="ti ti-flag" aria-hidden="true" style="font-size:20px;color:var(--color-text-secondary)"></i>
+        <p class="card-title" style="margin:4px 0 2px">Barangay official</p>
+        <p class="card-sub">Receives weekly digest, deploys fogging</p>
+      </div>
+    </div>
+  </div>
+
+</div>
