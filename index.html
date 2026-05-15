@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DengEYE D.I.S — Full App Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F2EC;
+    --bg2: #EDE9E0;
+    --bg3: #E4DFCF;
+    --ink: #1A1814;
+    --ink2: #4A4640;
+    --ink3: #8C887F;
+    --border: #D4CFC4;
+    --border2: #C4BFB2;
+    --accent: #C8402A;
+    --accent-soft: #F5EAE7;
+
+    --teal: #0F6E56; --teal-bg: #E1F5EE; --teal-border: #B3E5D0;
+    --purple: #3C3489; --purple-bg: #EEEDFE; --purple-border: #C9C6F8;
+    --amber: #854F0B; --amber-bg: #FAEEDA; --amber-border: #F2D49A;
+    --coral: #993C1D; --coral-bg: #FAECE7; --coral-border: #F0C4B5;
+
+    --r: 14px;
+    --r-sm: 8px;
+    --gap: 18px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--ink);
+    color: #F5F2EC;
+    padding: 40px 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(200,64,42,0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .header-eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,0.45);
+    margin-bottom: 10px;
+  }
+  .header-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .header-title span { color: var(--accent); }
+  .header-sub {
+    font-size: 14px;
+    color: rgba(245,242,236,0.55);
+    font-weight: 300;
+    max-width: 520px;
+  }
+  .header-badge {
+    position: absolute;
+    top: 40px; right: 48px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 40px;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 40px 32px 64px; }
+
+  /* ── SECTION LABEL ── */
+  .sec-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── ENTRY CARDS ── */
+  .entry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+    margin-bottom: 10px;
+  }
+  .entry-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 22px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .entry-card:hover { box-shadow: 0 6px 28px rgba(0,0,0,0.07); }
+  .entry-card.accent-left { border-left: 3px solid var(--accent); }
+  .entry-card.neutral-left { border-left: 3px solid var(--border2); }
+  .entry-card-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--r-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .entry-card-icon.red { background: var(--accent-soft); color: var(--accent); }
+  .entry-card-icon.neutral { background: var(--bg2); color: var(--ink2); }
+  .entry-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .entry-card-sub { font-size: 12.5px; color: var(--ink2); line-height: 1.55; }
+
+  .lang-chip {
+    font-size: 10px;
+    font-weight: 500;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 9px;
+    color: var(--ink2);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .lang-chip:hover {
+    background: var(--teal-bg);
+    color: var(--teal);
+    border-color: var(--teal-border);
+  }
+  .active-chip {
+    background: var(--teal-bg);
+    color: var(--teal);
+    border-color: var(--teal-border);
+    font-weight: 600;
+  }
+
+  /* ── DOWN ARROW ── */
+  .flow-arrow {
+    text-align: center;
+    margin: 16px 0;
+    color: var(--ink3);
+    font-size: 22px;
+    line-height: 1;
+    position: relative;
+  }
+  .flow-arrow::before, .flow-arrow::after {
+    content: '';
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    height: 1px; width: calc(50% - 20px);
+    background: var(--border);
+  }
+  .flow-arrow::before { left: 0; }
+  .flow-arrow::after { right: 0; }
+
+  /* ── MODULE GRID ── */
+  .module-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+    margin-bottom: 8px;
+  }
+  .module-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 18px 16px 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .module-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,0,0,0.09); }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 40px;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+    width: fit-content;
+  }
+  .pill-teal   { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
+  .pill-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+  .pill-amber  { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+  .pill-coral  { background: var(--coral-bg); color: var(--coral); border: 1px solid var(--coral-border); }
+
+  .module-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .step-list { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+  .step-item { display: flex; gap: 8px; align-items: flex-start; }
+  .step-dot {
+    flex-shrink: 0;
+    width: 19px; height: 19px;
+    border-radius: 50%;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--ink2);
+    margin-top: 1px;
+  }
+  .step-text { font-size: 11.5px; color: var(--ink2); line-height: 1.5; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 14px; }
+  .tag {
+    font-size: 10px; color: var(--ink3);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 7px;
+  }
+
+  /* ── CONNECTOR ── */
+  .connector-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4px 0 8px;
+  }
+  .connector-trunk {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .connector-branch {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .c-v { width: 1px; height: 20px; background: var(--border2); }
+  .c-h { width: 100%; height: 1px; background: var(--border2); margin-top: 20px; }
+  .c-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink3); margin-top: -3px; }
+  .c-down { width: 1px; height: 20px; background: var(--border2); margin: 0 auto 6px; }
+
+  /* ── HUB ── */
+  .hub {
+    background: var(--ink);
+    color: #F5F2EC;
+    border-radius: var(--r);
+    padding: 22px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .hub::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(200,64,42,0.2) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hub-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .hub-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .hub-sub { font-size: 12px; color: rgba(245,242,236,0.55); }
+
+  /* ── OUTPUT GRID ── */
+  .output-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .output-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 18px 16px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .output-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+  .output-icon-wrap {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin: 0 auto 10px;
+  }
+  .ic-map    { background: #E8F4FE; color: #1a6fa8; }
+  .ic-bell   { background: #FEF3E8; color: #c07020; }
+  .ic-users  { background: #EEF8F0; color: #2e8a48; }
+  .ic-cal    { background: #F0EEFF; color: #5240c0; }
+  .ic-digest { background: #FFF0F0; color: var(--accent); }
+  .ic-target { background: #F5F2EC; color: var(--ink2); }
+  .output-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .output-sub { font-size: 11px; color: var(--ink3); line-height: 1.45; }
+
+  /* ── DIVIDER ── */
+  .hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  /* ── TUSOK SECTION ── */
+  .tusok-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+  .tusok-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 22px 22px;
+  }
+  .tusok-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .score-row {
+    display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;
+  }
+  .score-badge {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .b-plus  { background: #EEF8F0; color: #2e8a48; }
+  .b-check { background: #EEF8F0; color: #2e8a48; }
+  .b-cross { background: #FEE8E6; color: var(--accent); }
+  .b-star  { background: var(--amber-bg); color: var(--amber); }
+  .b-num   { background: var(--bg2); color: var(--ink2); border: 1px solid var(--border); }
+  .score-text { font-size: 12.5px; color: var(--ink2); line-height: 1.5; }
+  .score-pts {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .pts-pos { color: #2e8a48; }
+  .pts-neg { color: var(--accent); }
+  .pts-bon { color: var(--amber); }
+
+  /* ── ESCALATION ── */
+  .escl-row {
+    display: flex; align-items: stretch; gap: 0;
+  }
+  .escl-card {
+    flex: 1;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 20px 16px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .escl-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+  .escl-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin: 0 auto 10px;
+    color: var(--ink2);
+  }
+  .escl-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .escl-sub { font-size: 11px; color: var(--ink3); line-height: 1.45; }
+  .escl-arrow {
+    flex: 0 0 32px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    color: var(--ink3);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    color: rgba(245,242,236,0.4);
+    font-size: 11px;
+    text-align: center;
+    padding: 20px 32px;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .anim { opacity: 0; animation: fadeUp 0.5s ease forwards; }
+  .anim:nth-child(1) { animation-delay: 0.05s; }
+  .anim:nth-child(2) { animation-delay: 0.12s; }
+  .anim:nth-child(3) { animation-delay: 0.19s; }
+  .anim:nth-child(4) { animation-delay: 0.26s; }
+
+  /* ── LODI SA DENGUE ── */
+  .lodi-banner {
+    background: var(--ink);
+    color: #F5F2EC;
+    border-radius: var(--r);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .lodi-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 90% 50%, rgba(200,64,42,0.25) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .lodi-crown { font-size: 32px; flex-shrink: 0; }
+  .lodi-banner-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px; font-weight: 800;
+    letter-spacing: 0.06em;
+    color: #FFD700;
+    margin-bottom: 3px;
+  }
+  .lodi-banner-sub { font-size: 12px; color: rgba(245,242,236,0.55); }
+  .lodi-pts-display {
+    margin-left: auto;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(245,242,236,0.35);
+    border: 1px solid rgba(245,242,236,0.15);
+    border-radius: 40px;
+    padding: 5px 14px;
+    flex-shrink: 0;
+  }
+
+  .lodi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+    margin-bottom: 16px;
+  }
+  .lodi-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lodi-card-header {
+    display: flex; flex-direction: column; gap: 5px; margin-bottom: 4px;
+  }
+  .lodi-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-family: 'Syne', sans-serif;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 40px; padding: 3px 10px;
+    width: fit-content;
+  }
+  .lodi-pill-teal   { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
+  .lodi-pill-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+  .lodi-pill-amber  { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+  .lodi-pill-coral  { background: var(--coral-bg); color: var(--coral); border: 1px solid var(--coral-border); }
+  .lodi-module-tag {
+    font-size: 10px; color: var(--ink3);
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1px 6px; width: fit-content;
+  }
+  .lodi-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--ink2);
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .lodi-teal   { border-top: 3px solid var(--teal); }
+  .lodi-purple { border-top: 3px solid var(--purple); }
+  .lodi-amber  { border-top: 3px solid var(--amber); }
+  .lodi-coral  { border-top: 3px solid var(--coral); }
+
+  .lodi-leaderboard {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 18px 22px;
+    margin-bottom: 8px;
+  }
+  .lodi-lb-header {
+    display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .lodi-lb-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 800;
+  }
+  .lodi-lb-cycle { font-size: 11px; color: var(--ink3); }
+  .lodi-lb-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px; border-radius: var(--r-sm);
+    margin-bottom: 6px; flex-wrap: wrap;
+  }
+  .lodi-lb-top { background: #FFFBEA; border: 1px solid #F2D49A; }
+  .lodi-rank {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 800;
+    color: var(--amber); flex-shrink: 0;
+  }
+  .lodi-name { font-size: 12px; font-weight: 500; flex: 1; min-width: 120px; }
+  .lodi-breakdown { display: flex; gap: 5px; flex-wrap: wrap; }
+  .lodi-bp {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
+    border-radius: 4px; padding: 2px 7px;
+  }
+  .lodi-bp-teal   { background: var(--teal-bg); color: var(--teal); }
+  .lodi-bp-purple { background: var(--purple-bg); color: var(--purple); }
+  .lodi-bp-amber  { background: var(--amber-bg); color: var(--amber); }
+  .lodi-bp-coral  { background: var(--coral-bg); color: var(--coral); }
+  .lodi-total-pts {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px; font-weight: 700;
+    color: var(--ink3); letter-spacing: 0.06em;
+  }
+  .lodi-lb-note {
+    font-size: 11px; color: var(--ink3);
+    margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 800px) {
+    .lodi-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .lodi-grid { grid-template-columns: 1fr; }
+    .lodi-banner { flex-wrap: wrap; }
+    .lodi-pts-display { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">Dengue Intelligence System</div>
+  <h1 class="header-title">DengEYE <span>D.I.S</span></h1>
+  <p class="header-sub">Full application flow — from community detection to official intervention.</p>
+  <span class="header-badge">App Flow v2.0</span>
+</div>
+
+<div class="page">
+
+  <!-- ENTRY -->
+  <div class="sec-label">App Entry</div>
+  <div class="entry-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="entry-card accent-left anim">
+      <div class="entry-card-icon red">👤</div>
+      <div class="entry-card-title">User Opens DengEYE App</div>
+      <p class="entry-card-sub">Resident, BHW, or Barangay Official — selects role on first launch. Location permissions requested.</p>
+    </div>
+
+    <div class="entry-card anim" style="border-left: 3px solid var(--teal);">
+      <div class="entry-card-icon" style="background:var(--teal-bg);color:var(--teal);">🌐</div>
+      <div class="entry-card-title">Select Language</div>
+      <p class="entry-card-sub" style="margin-bottom:12px;">Choose preferred language for the full app interface. Supports Asia Pacific languages and major Philippine regional languages.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;">
+        <span style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);width:100%;margin-bottom:2px;">🇵🇭 Filipino Languages</span>
+        <span class="lang-chip active-chip">Filipino</span>
+        <span class="lang-chip">Ilocano</span>
+        <span class="lang-chip">Bisaya</span>
+        <span class="lang-chip">Kapampangan</span>
+        <span class="lang-chip">Hiligaynon</span>
+        <span class="lang-chip">Waray</span>
+        <span class="lang-chip">Bicolano</span>
+        <span class="lang-chip">Pangasinense</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;">
+        <span style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);width:100%;margin-bottom:2px;">🌏 Asia Pacific</span>
+        <span class="lang-chip">English</span>
+        <span class="lang-chip">Bahasa Indonesia</span>
+        <span class="lang-chip">Bahasa Melayu</span>
+        <span class="lang-chip">Tiếng Việt</span>
+        <span class="lang-chip">ภาษาไทย</span>
+        <span class="lang-chip">日本語</span>
+        <span class="lang-chip">한국어</span>
+        <span class="lang-chip">中文</span>
+        <span class="lang-chip">ភាសាខ្មែរ</span>
+        <span class="lang-chip">မြန်မာ</span>
+        <span class="lang-chip">ພາສາລາວ</span>
+      </div>
+      <p style="font-size:10px;color:var(--ink3);margin-top:10px;font-style:italic;">* Placeholder — content remains in English for now</p>
+    </div>
+
+    <div class="entry-card neutral-left anim">
+      <div class="entry-card-icon neutral">🗺️</div>
+      <div class="entry-card-title">Home Screen: Live Hotspot Map</div>
+      <p class="entry-card-sub">Real-time dengue risk map loads. Color-coded zones (green → red) based on aggregated data from all modules.</p>
+    </div>
+  </div>
+
+  <div class="flow-arrow">↓</div>
+
+  <!-- 4 MODULES -->
+  <div class="sec-label">4 Core Modules</div>
+  <div class="module-grid">
+
+    <!-- TANAW-KLIMA -->
+    <div class="module-card anim">
+      <span class="pill pill-teal">Tanaw-Klima</span>
+      <div class="module-title">Environmental Risk Prediction</div>
+      <div class="step-list">
+        <div class="step-item"><span class="step-dot">1</span><span class="step-text">User inputs temperature + humidity</span></div>
+        <div class="step-item"><span class="step-dot">2</span><span class="step-text">LSTM model processes time-series data</span></div>
+        <div class="step-item"><span class="step-dot">3</span><span class="step-text">Risk forecast generated (24–72 hrs)</span></div>
+        <div class="step-item"><span class="step-dot">4</span><span class="step-text">Risk intensity overlaid on hotspot map</span></div>
+        <div class="step-item"><span class="step-dot">5</span><span class="step-text">Tanaw Points awarded per active forecast session</span></div>
+      </div>
+      <div class="tag-list">
+        <span class="tag">LSTM model</span>
+        <span class="tag">time-based forecast</span>
+        <span class="tag">dynamic map layer</span>
+        <span class="tag">Tanaw Points</span>
+      </div>
+    </div>
+
+    <!-- PUGAD-SIYASAT -->
+    <div class="module-card anim">
+      <span class="pill pill-purple">Pugad-Siyasat</span>
+      <div class="module-title">Breeding Site Detection</div>
+      <div class="step-list">
+        <div class="step-item"><span class="step-dot">1</span><span class="step-text">User opens camera — continuous scan starts</span></div>
+        <div class="step-item"><span class="step-dot">2</span><span class="step-text">YOLO-based CNN auto-detects sites in real-time</span></div>
+        <div class="step-item"><span class="step-dot">3</span><span class="step-text">Bounding boxes drawn on detected objects</span></div>
+        <div class="step-item"><span class="step-dot">4</span><span class="step-text">GPS coordinates auto-logged + map tagged</span></div>
+        <div class="step-item"><span class="step-dot">5</span><span class="step-text">GLINT- Liwanag sa Dilim mode: light-reflection scan for dark areas</span></div>
+        <div class="step-item"><span class="step-dot">6</span><span class="step-text">Pugad Points awarded on BHW verification</span></div>
+      </div>
+      <div class="tag-list">
+        <span class="tag">YOLO-CNN</span>
+        <span class="tag">GLINT mode</span>
+        <span class="tag">Pugad Points</span>
+      </div>
+    </div>
+
+    <!-- TUKLAS -->
+    <div class="module-card anim">
+      <span class="pill pill-amber">Tuklas</span>
+      <div class="module-title">Rash Scan Diagnostic</div>
+      <div class="step-list">
+        <div class="step-item"><span class="step-dot">1</span><span class="step-text">User opens camera within the app</span></div>
+        <div class="step-item"><span class="step-dot">2</span><span class="step-text">Captures rash image using smartphone camera</span></div>
+        <div class="step-item"><span class="step-dot">3</span><span class="step-text">CNN model classifies cutaneous rash pattern</span></div>
+        <div class="step-item"><span class="step-dot">4</span><span class="step-text">Preliminary risk result shown (screening only)</span></div>
+        <div class="step-item"><span class="step-dot">5</span><span class="step-text">If suspected positive: GPS logged, community alerted</span></div>
+        <div class="step-item"><span class="step-dot">6</span><span class="step-text">Tuklas Points awarded — bonus on confirmed alert</span></div>
+      </div>
+      <div class="tag-list">
+        <span class="tag">CNN classifier</span>
+        <span class="tag">camera-based</span>
+        <span class="tag">secondary prevention</span>
+        <span class="tag">geo-alert</span>
+      </div>
+    </div>
+
+    <!-- BANTAY-BAYANIHAN -->
+    <div class="module-card anim">
+      <span class="pill pill-coral">Bantay-Bayanihan</span>
+      <div class="module-title">Kumarites Community Reporting</div>
+      <div class="step-list">
+        <div class="step-item"><span class="step-dot">1</span><span class="step-text">Resident files daily health update or symptom report</span></div>
+        <div class="step-item"><span class="step-dot">2</span><span class="step-text">AI chatbot triages in Filipino/dialect</span></div>
+        <div class="step-item"><span class="step-dot">3</span><span class="step-text">BHW verifies report → elevates to RHU if needed</span></div>
+        <div class="step-item"><span class="step-dot">4</span><span class="step-text">Peer-to-peer Kumarites awareness sharing</span></div>
+        <div class="step-item"><span class="step-dot">5</span><span class="step-text">Offline queue: reports sync when back online</span></div>
+        <div class="step-item"><span class="step-dot">6</span><span class="step-text">Kumarites Points earned per verified + peer-upvoted report</span></div>
+      </div>
+      <div class="tag-list">
+        <span class="tag">BHW integration</span>
+        <span class="tag">AI chatbot</span>
+        <span class="tag">offline-first</span>
+        <span class="tag">Kumarites</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONNECTOR -->
+  <div class="connector-section">
+    <div class="connector-trunk">
+      <div class="connector-branch"><div class="c-v"></div></div>
+      <div class="connector-branch"><div class="c-v"></div></div>
+      <div class="connector-branch"><div class="c-v"></div></div>
+      <div class="connector-branch"><div class="c-v"></div></div>
+    </div>
+    <div style="display:flex;width:100%;align-items:center;height:1px;background:var(--border2);margin-bottom:0;">
+      <div style="flex:1"></div>
+      <div class="c-dot"></div>
+      <div style="flex:1"></div>
+      <div class="c-dot"></div>
+      <div style="flex:1"></div>
+      <div class="c-dot"></div>
+      <div style="flex:1"></div>
+    </div>
+    <div class="c-down"></div>
+  </div>
+
+  <!-- CENTRAL HUB -->
+  <div class="hub">
+    <span class="hub-icon">🗄️</span>
+    <div class="hub-title">Community Risk Database + Hotspot Map Engine</div>
+    <div class="hub-sub">All module outputs feed here — GPS tags, CNN detections, LSTM forecasts, community reports, Lodi Points</div>
+  </div>
+  <div class="flow-arrow" style="margin: 8px 0 20px;">↓</div>
+
+  <!-- OUTPUTS -->
+  <div class="sec-label">Outputs &amp; Interventions</div>
+  <div class="output-grid">
+    <div class="output-card">
+      <div class="output-icon-wrap ic-map">📍</div>
+      <div class="output-label">Live Hotspot Map</div>
+      <p class="output-sub">Updated in real-time per detection or report</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon-wrap ic-bell">🔔</div>
+      <div class="output-label">Localized Alerts</div>
+      <p class="output-sub">Push notif to nearby users on confirmed case</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon-wrap ic-users">👥</div>
+      <div class="output-label">Contact Tracing Lite</div>
+      <p class="output-sub">Anonymous proximity notif within barangay</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon-wrap ic-cal">🦟</div>
+      <div class="output-label">Pugad Patrol: Kilos Laban Lamok Operations</div>
+      <p class="output-sub">Community cleanup drives coordinated by officials, residents confirm participation</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon-wrap ic-digest">📊</div>
+      <div class="output-label">Bantay-Kagat: Hotspot of the Week</div>
+      <p class="output-sub">Auto-generated weekly hotspot digest sent to barangay captain every 7 days</p>
+    </div>
+    <div class="output-card">
+      <div class="output-icon-wrap ic-target">🏆</div>
+      <div class="output-label">Lodi sa Dengue Leaderboard</div>
+      <p class="output-sub">Lodi Points per module — Lodi of the Week crowned every 7 days</p>
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <!-- LODI SA DENGUE POINTING SYSTEM -->
+  <div class="sec-label">LODI SA DENGUE — Pointing System</div>
+
+  <!-- Lodi of the Week banner -->
+  <div class="lodi-banner">
+    <div class="lodi-crown">👑</div>
+    <div>
+      <div class="lodi-banner-title">LODI OF THE WEEK</div>
+      <div class="lodi-banner-sub">Awarded every 7 days to the highest Lodi Points earner in the barangay</div>
+    </div>
+    <div class="lodi-pts-display">LODI POINTS</div>
+  </div>
+
+  <!-- 4 Point Types -->
+  <div class="lodi-grid">
+
+    <div class="lodi-card lodi-teal">
+      <div class="lodi-card-header">
+        <span class="lodi-pill lodi-pill-teal">🌡️ TANAW POINTS</span>
+        <span class="lodi-module-tag">Tanaw-Klima</span>
+      </div>
+      <div class="lodi-card-title">Environmental Risk Prediction</div>
+      <div class="score-row">
+        <span class="score-badge b-check">✓</span>
+        <span class="score-text">Active risk forecast submitted → <span class="score-pts pts-pos">+5 pts</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-star">★</span>
+        <span class="score-text">Forecast matches actual outbreak spike → <span class="score-pts pts-bon">+10 bonus pts</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-num">ℹ</span>
+        <span class="score-text">Points awarded per active prediction session, not per input</span>
+      </div>
+    </div>
+
+    <div class="lodi-card lodi-purple">
+      <div class="lodi-card-header">
+        <span class="lodi-pill lodi-pill-purple">📍 PUGAD POINTS</span>
+        <span class="lodi-module-tag">Pugad-Siyasat</span>
+      </div>
+      <div class="lodi-card-title">Breeding Site Detection</div>
+      <div class="score-row">
+        <span class="score-badge b-plus">+</span>
+        <span class="score-text">Breeding site detected & reflected on map → <span class="score-pts pts-pos">+8 pts</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-check">✓</span>
+        <span class="score-text">BHW verifies site as real → <span class="score-pts pts-pos">+5 bonus pts</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-cross">✗</span>
+        <span class="score-text">Flagged as false detection → <span class="score-pts pts-neg">−4 pts penalty</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-star">★</span>
+        <span class="score-text">Site eliminated by team → <span class="score-pts pts-bon">+5 bonus pts</span></span>
+      </div>
+    </div>
+
+    <div class="lodi-card lodi-amber">
+      <div class="lodi-card-header">
+        <span class="lodi-pill lodi-pill-amber">🔬 TUKLAS POINTS</span>
+        <span class="lodi-module-tag">Tuklas</span>
+      </div>
+      <div class="lodi-card-title">Rash Scan & Case Detection</div>
+      <div class="score-row">
+        <span class="score-badge b-plus">+</span>
+        <span class="score-text">Rash scan submitted via camera → <span class="score-pts pts-pos">+6 pts</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-check">✓</span>
+        <span class="score-text">CNN flags possible dengue rash → <span class="score-pts pts-pos">+10 pts</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-star">★</span>
+        <span class="score-text">Alert triggers community & case confirmed → <span class="score-pts pts-bon">+15 bonus pts</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-num">ℹ</span>
+        <span class="score-text">Points still awarded for negative scans — early screening counts</span>
+      </div>
+    </div>
+
+    <div class="lodi-card lodi-coral">
+      <div class="lodi-card-header">
+        <span class="lodi-pill lodi-pill-coral">🤝 KUMARITES POINTS</span>
+        <span class="lodi-module-tag">Bantay-Bayanihan</span>
+      </div>
+      <div class="lodi-card-title">Community Reporting & Peer Recognition</div>
+      <div class="score-row">
+        <span class="score-badge b-plus">+</span>
+        <span class="score-text">Community report submitted → <span class="score-pts pts-pos">+4 pts</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-check">✓</span>
+        <span class="score-text">Report verified by BHW → <span class="score-pts pts-pos">+6 pts</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-star">★</span>
+        <span class="score-text">Another Kumarites upvotes your report → <span class="score-pts pts-bon">+3 pts per upvote</span></span>
+      </div>
+      <div class="score-row">
+        <span class="score-badge b-star">★</span>
+        <span class="score-text">Peer-to-peer awareness share acted on → <span class="score-pts pts-bon">+5 pts</span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Leaderboard preview -->
+  <div class="lodi-leaderboard">
+    <div class="lodi-lb-header">
+      <span class="lodi-lb-title">🏆 LODI SA DENGUE — Leaderboard</span>
+      <span class="lodi-lb-cycle">Resets every 7 days · Lodi of the Week announced Sunday</span>
+    </div>
+    <div class="lodi-lb-row lodi-lb-top">
+      <span class="lodi-rank">👑 #1</span>
+      <span class="lodi-name">Top Kumarites this week</span>
+      <div class="lodi-breakdown">
+        <span class="lodi-bp lodi-bp-teal">TANAW</span>
+        <span class="lodi-bp lodi-bp-purple">PUGAD</span>
+        <span class="lodi-bp lodi-bp-amber">TUKLAS</span>
+        <span class="lodi-bp lodi-bp-coral">KUMARITES</span>
+      </div>
+      <span class="lodi-total-pts">= TOTAL LODI POINTS</span>
+    </div>
+    <div class="lodi-lb-note">All four point types combine into one Lodi Points total. Accuracy penalties apply to Pugad Points only.</div>
+  </div>
+
+  <hr class="hr">
+
+  <!-- BHW ESCALATION -->
+  <div class="sec-label">BHW Escalation Path</div>
+  <div class="escl-row">
+    <div class="escl-card">
+      <div class="escl-icon">🧑</div>
+      <div class="escl-title">Resident</div>
+      <p class="escl-sub">Files report or detection</p>
+    </div>
+    <div class="escl-arrow">→</div>
+    <div class="escl-card">
+      <div class="escl-icon">🩺</div>
+      <div class="escl-title">BHW</div>
+      <p class="escl-sub">Verifies, flags false positives, escalates</p>
+    </div>
+    <div class="escl-arrow">→</div>
+    <div class="escl-card">
+      <div class="escl-icon">🏥</div>
+      <div class="escl-title">RHU / DOH</div>
+      <p class="escl-sub">Receives confirmed case escalations</p>
+    </div>
+    <div class="escl-arrow">→</div>
+    <div class="escl-card">
+      <div class="escl-icon">🚩</div>
+      <div class="escl-title">Barangay Official</div>
+      <p class="escl-sub">Receives Bantay-Kagat digest, leads Pugad Patrol ops</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">DengEYE D.I.S — Dengue Intelligence System &nbsp;·&nbsp; Community-driven detection &amp; response</div>
+
+</body>
+</html>
